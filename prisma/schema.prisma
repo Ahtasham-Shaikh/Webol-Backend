@@ -33,3 +33,25 @@ model Comment {
   movieId     Int
   movie       Movie    @relation(fields: [movieId], references: [id])
 }
+
+model TvShow {
+  id           Int       @id @default(autoincrement())
+  title        String
+  firstAirDate DateTime
+  lastAirDate  DateTime?
+  thumbnail    String?
+  backdrop     String?
+  rating       Float?
+  comments     TvComment[]
+}
+
+model TvComment {
+  id          Int      @id @default(autoincrement())
+  userName    String
+  rating      Float
+  review      String?
+  commentedAt DateTime @default(now())
+  upvotes     Int      @default(0)
+  tvShowId    Int
+  tvShow      TvShow   @relation(fields: [tvShowId], references: [id])
+}
