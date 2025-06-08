@@ -37,7 +37,12 @@ app.get('/movies', async (req, res) => {
         [sortBy]: order,
       },
       include: {
-        comments: true, // if you want to include comments in the response
+        comments: {
+          take: 5,
+          orderBy: {
+            commentedAt: 'desc',
+          },
+        }, // if you want to include comments in the response
       },
     });
 
