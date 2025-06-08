@@ -10,6 +10,18 @@ function generateUpvotes() {
   return faker.number.int({ min: 0, max: 10 });
 }
 
+async function updateMovieRating(movieId) {
+  const result = await prisma.comment.aggregate({
+    where: { movieId },
+    _avg: { rating: true },
+  });
+
+  await prisma.movie.update({
+    where: { id: movieId },
+    data: { rating: result._avg.rating },
+  });
+}
+
 function generateReview(index) {
   if ((index + 1) % 5 === 0) {
     // Every 5th comment: longer review (~4 lines)
@@ -36,7 +48,7 @@ async function seedComments() {
     }));
 
     await prisma.comment.createMany({ data: comments });
-
+    await updateMovieRating(movie.id); // ← update movie's rating
     console.log(`Seeded ${numComments} comments for movie: ${movie.title}`);
   }
 

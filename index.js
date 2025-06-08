@@ -1,9 +1,16 @@
 const express = require('express');
+const cors = require('cors');
 const { PrismaClient } = require('@prisma/client');
 const app = express();
 const prisma = new PrismaClient();
 
 app.use(express.json());
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
 
 app.get('/movies', async (req, res) => {
   try {
@@ -30,7 +37,7 @@ app.get('/movies', async (req, res) => {
         [sortBy]: order,
       },
       include: {
-        comments: false, // if you want to include comments in the response
+        comments: true, // if you want to include comments in the response
       },
     });
 

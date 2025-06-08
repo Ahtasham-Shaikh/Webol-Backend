@@ -1,7 +1,7 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
-const TMDB_API_KEY = env(TMDB_API_KEY);
+const TMDB_API_KEY = "8f8256fc76b8b4b4dc45a1614dd646be";
 const BASE_URL = 'https://api.themoviedb.org/3/movie/popular';
 const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
 

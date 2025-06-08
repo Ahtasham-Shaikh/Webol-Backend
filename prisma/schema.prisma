@@ -19,6 +19,7 @@ model Movie {
   releaseDate DateTime
   thumbnail   String?
   backdrop    String?
+  rating      Float? 
   comments    Comment[]
 }
 
